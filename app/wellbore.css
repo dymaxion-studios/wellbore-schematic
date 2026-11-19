@@ -1,0 +1,82 @@
+/* Wellbore schematic. Uses the colour tokens from globals.css and adds a few of its own. */
+:root{
+  --wb-ink:#122230;--wb-pipe:#3B4A57;--wb-overburden:#EEF1F4;--wb-ground:#7A6A4A;
+  --wb-sky-1:#E6F0F7;--wb-sky-2:#F6F9FB;--wb-shale:#9AA5AE;--wb-shale-mid:#8A8FA6;--wb-shale-dark:#4B5560;
+  --wb-land:#F4F6F1;--wb-grid:#DDE3DA;--wb-road:#B9A98A;
+}
+:root[data-theme="dark"]{
+  --wb-ink:#DCE5EB;--wb-pipe:#A9B7C2;--wb-overburden:#172029;--wb-ground:#9C8A62;
+  --wb-sky-1:#0F1E2A;--wb-sky-2:#131F29;--wb-shale:#5E6A74;--wb-shale-mid:#66698A;--wb-shale-dark:#39424B;
+  --wb-land:#141E23;--wb-grid:#24323A;--wb-road:#6E6450;
+}
+.wb-root{height:100vh;min-height:520px;display:flex;flex-direction:column;gap:10px;padding:12px 14px 8px;background:var(--bg);color:var(--ink);overflow:hidden}
+.wb-center{display:grid;place-items:center;text-align:center;color:var(--muted);font-size:14px;padding:24px}
+.wb-head{display:flex;align-items:center;gap:10px 16px;flex-wrap:wrap}
+.wb-title{min-width:220px;flex:1}
+.wb-title h1{margin:0;font-size:20px;letter-spacing:-.02em;line-height:1.2;font-weight:700}
+.wb-title p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
+.wb-chips{display:flex;gap:6px;flex-wrap:wrap}
+.wb-chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;background:var(--panel);border:1px solid var(--rule);color:var(--ink-2);white-space:nowrap}
+.wb-chip i{width:9px;height:9px;border-radius:3px}
+.wb-chip.good{background:var(--good-soft);color:var(--good);border-color:transparent}
+.wb-chip.warn{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.wb-chip.bad{background:var(--bad-soft);color:var(--bad);border-color:transparent}
+.wb-tools{display:flex;gap:8px;align-items:center}
+.wb-pick select{width:auto;max-width:220px;padding:6px 10px;border:1px solid var(--rule-strong);border-radius:9px;background:var(--panel);font-weight:600;font-size:13px}
+.wb-btn{padding:7px 12px;border-radius:9px;border:1px solid var(--shell);background:var(--shell);color:#fff;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap}
+.wb-btn:hover{background:var(--shell-3)}
+:root[data-theme="dark"] .wb-btn{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+
+.wb-grid{flex:1;min-height:0;display:grid;gap:10px;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);grid-template-rows:minmax(0,1.55fr) minmax(0,.7fr) auto;grid-template-areas:"a c" "b d" "e e"}
+.wb-a{grid-area:a}.wb-b{grid-area:b}.wb-c{grid-area:c}.wb-d{grid-area:d}.wb-e{grid-area:e}
+.wb-card{background:var(--panel);border:1px solid var(--rule);border-radius:12px;box-shadow:var(--shadow-1);min-width:0;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.wb-ch{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px 4px;flex:none}
+.wb-ch h2{margin:0;font-size:13px;font-weight:650;letter-spacing:-.005em}
+.wb-hint{font-size:11.5px;color:var(--faint);white-space:nowrap}
+.wb-seg{display:inline-flex;border:1px solid var(--rule);border-radius:9px;padding:2px;gap:2px;background:var(--sunk)}
+.wb-seg button{border:0;background:none;padding:3px 9px;border-radius:6px;cursor:pointer;font-size:11.5px;color:var(--muted);font-weight:600}
+.wb-seg button.on{background:var(--panel);color:var(--ink);box-shadow:var(--shadow-1)}
+.wb-plot{position:relative;flex:1;min-height:0;overflow:hidden}
+.wb-plot svg{display:block;position:absolute;inset:0}
+.wb-map{border-top:1px solid var(--rule)}
+.wb-empty{display:grid;place-items:center;color:var(--muted);font-size:12.5px}
+.wb-legend{display:flex;gap:12px;flex-wrap:wrap;padding:4px 12px 8px;font-size:11.5px;color:var(--muted);flex:none}
+.wb-legend i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:5px;vertical-align:middle}
+.wb-facts{margin:0;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:0}
+.wb-facts div{padding:8px 12px;border-right:1px solid var(--rule);min-width:0}
+.wb-facts div:last-child{border-right:0}
+.wb-facts dt{font-size:11px;color:var(--muted);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wb-facts dd{margin:1px 0 0;font-size:13.5px;font-weight:700;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wb-foot{font-size:10.5px;color:var(--faint);line-height:1.35;flex:none}
+.wb-tip{position:absolute;z-index:3;pointer-events:none;background:var(--shell);color:#fff;border-radius:8px;padding:7px 10px;font-size:11.5px;line-height:1.45;display:flex;flex-direction:column;box-shadow:var(--shadow-2);max-width:210px}
+.wb-tip b{font-weight:650}
+.wb-tip span{color:#C9D6DF}
+.wb-hit{cursor:pointer;outline:none}
+.wb-hit:hover line:last-of-type,.wb-hit:hover path:last-of-type{stroke-width:3.4;opacity:1}
+.wb-hit:hover circle:last-of-type{stroke:var(--ink)}
+.wb-hit:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* svg text */
+.wb-plot text{font-family:inherit;fill:var(--ink)}
+.wb-tick{font-size:10px;fill:var(--muted)!important;font-variant-numeric:tabular-nums}
+.wb-sub{font-size:10px;fill:var(--muted)!important}
+.wb-note{font-size:10px;fill:var(--muted)!important;font-style:italic}
+.wb-fm{font-size:11px;font-weight:600;fill:var(--ink-2)!important}
+.wb-fm.on{font-weight:700;fill:var(--ink)!important}
+.wb-callout-t{font-size:11px;font-weight:650;paint-order:stroke;stroke:var(--panel);stroke-width:3px;stroke-linejoin:round}
+.wb-sec{font-size:10px;fill:var(--faint)!important;opacity:.8}
+.wb-town{font-size:11px;font-weight:600;fill:var(--muted)!important;paint-order:stroke;stroke:var(--wb-land);stroke-width:3px}
+.wb-water-t{font-size:10.5px;font-style:italic;fill:var(--water)!important;paint-order:stroke;stroke:var(--wb-land);stroke-width:3px}
+.wb-road-t{font-size:10px;font-weight:700;fill:var(--muted)!important;paint-order:stroke;stroke:var(--wb-land);stroke-width:3px}
+.wb-loc-t{font-size:9px;fill:var(--muted)!important}
+.wb-loc-h{font-size:9.5px;font-weight:700;fill:var(--ink)!important}
+
+@media (max-width:900px){
+  .wb-root{height:auto;overflow:visible}
+  .wb-grid{display:flex;flex-direction:column}
+  .wb-a{height:440px}.wb-b{height:200px}.wb-c{height:380px}.wb-d{height:210px}
+  .wb-facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wb-facts div{border-bottom:1px solid var(--rule)}
+  .wb-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){.wb-root *{transition:none!important}}
